@@ -162,7 +162,11 @@
     // Fotoğrafları yükle
     for (let i = 1; i <= totalImages; i++) {
       const img = document.createElement("img");
-      img.src = `images/${i}.jpeg`;
+  if (i === 25) {
+    img.src = `images/25.jpeg`;
+  } else {
+    img.src = `images/${i}.JPEG`;
+  }
       img.classList.add("slideshow-item");
       slideshow.appendChild(img);
       items.push(img);
