@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canım Anneme...</title>
+
+  <!-- El yazısı fontu -->
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fce4ec;
+      font-family: 'Patrick Hand', cursive;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .text-container {
+      text-align: center;
+      color: #c21807;
+      font-style: italic;
+      font-weight: bold;
+      font-family: 'Patrick Hand', cursive;
+      font-size: clamp(20px, 5vw, 40px);
+      padding: 40px 20px 20px 20px;
+      z-index: 2;
+      white-space: pre-line;
+    }
+
+    #nextButton {
+      font-family: 'Patrick Hand', cursive;
+      font-size: clamp(16px, 4vw, 24px);
+      padding: 12px 24px;
+      border: none;
+      background-color: #f06292;
+      color: white;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+      z-index: 2;
+      margin-bottom: 40px;
+    }
+
+    #nextButton:hover {
+      background-color: #ec407a;
+    }
+
+    .heart {
+      position: fixed;
+      top: -30px;
+      color: #e53935;
+      animation: fall linear forwards;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fon Müziği -->
+  <audio id="bgm" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d0c1ba5bb.mp3?filename=relaxing-piano-ambient-11468.mp3" type="audio/mp3">
+    Tarayıcınız bu ses öğesini desteklemiyor.
+  </audio>
+
+  <div class="text-container" id="text"></div>
+  <button id="nextButton" onclick="goNext()">Devam Et</button>
+
+  <script>
+    const mesaj = [
+      "Birtek annem…",
+      "Senin biricik sarı civcivin her zaman seni çok seviyor.",
+      "Ne zaman yorulsam, içim daralsa, yine senin sesinde buluyorum huzuru.",
+      "İyi ki varsın. Anneler Günün kutlu olsun canım annem."
+    ];
+
+    const textDiv = document.getElementById("text");
+    let i = 0;
+
+    function yazYazdir() {
+      if (i < mesaj.length) {
+        const satir = document.createElement("div");
+        satir.innerText = mesaj[i];
+        textDiv.appendChild(satir);
+        i++;
+        setTimeout(yazYazdir, 1800);
+      } else {
+        kalpYagmuru(() => {
+          document.getElementById("nextButton").style.display = "inline-block";
+        });
+      }
+    }
+
+    function kalpYagmuru(onFinish) {
+      let count = 0;
+      const maxHearts = 40;
+      const interval = setInterval(() => {
+        const kalp = document.createElement("div");
+        kalp.classList.add("heart");
+        kalp.innerText = "❤️";
+        kalp.style.left = Math.random() * 100 + "vw";
+        kalp.style.fontSize = Math.random() * 20 + 20 + "px";
+        kalp.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(kalp);
+        kalp.addEventListener('animationend', () => kalp.remove());
+
+        count++;
+        if (count >= maxHearts) {
+          clearInterval(interval);
+          setTimeout(onFinish, 4000); // son kalplerin düşmesini bekle
+        }
+      }, 250);
+    }
+
+    function goNext() {
+      const audio = document.getElementById("bgm");
+      if (audio.paused) {
+        audio.volume = 0.4;
+        audio.play().catch(() => {
+          alert("Müziği başlatmak için dokunmanız gerekebilir.");
+        });
+      }
+      window.location.href = "site.html"
+    }
+
+    // İlk tıklamada müzik başlat
+    document.body.addEventListener("click", () => {
+      const audio = document.getElementById("bgm");
+      if (audio.paused) {
+        audio.volume = 0.4;
+        audio.play().catch(() => {});
+      }
+    }, { once: true });
+
+    yazYazdir();
+  </script>
+</body>
+</html>

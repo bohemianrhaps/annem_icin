@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hatıralarımız</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fce4ec;
+      font-family: 'Patrick Hand', cursive;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    #container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    #slideshowWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #slideshow {
+      width: 90vw;
+      max-width: 500px;
+      height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    #slideshow img,
+    #slideshow video {
+      position: absolute;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    #slideshow img.active,
+    #slideshow video.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: clamp(16px, 4vw, 24px);
+      color: #c21807;
+    }
+
+    #buttonWrapper {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #fce4ec;
+      z-index: 5;
+    }
+
+    #messageButton {
+      padding: 18px 36px;
+      font-size: clamp(18px, 5vw, 30px);
+      background-color: #f06292;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-family: 'Patrick Hand', cursive;
+      font-weight: bold;
+      cursor: pointer;
+      animation: envelope 0.8s ease-out forwards;
+    }
+
+    @keyframes envelope {
+      0% {
+        transform: scale(0.5) rotateX(-90deg);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) rotateX(0);
+        opacity: 1;
+      }
+    }
+
+    #messageButton:hover {
+      background-color: #ec407a;
+    }
+
+    #overlay {
+      position: absolute;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 5vw;
+      text-align: center;
+      padding: 30px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-family: 'Patrick Hand', cursive;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Müzik -->
+  <audio id="bgm" loop>
+    <source src="music/audio.mp3" type="audio/mpeg">
+    Tarayıcınız ses dosyasını desteklemiyor.
+  </audio>
+
+  <!-- Başlat uyarısı -->
+  <div id="overlay" onclick="startEverything()">🎵 Müziği başlatmak için dokun</div>
+
+  <div id="container">
+    <div id="slideshowWrapper">
+      <div id="slideshow"></div>
+      <div class="caption">Hatıralarımız…</div>
+    </div>
+  </div>
+
+  <div id="buttonWrapper">
+    <button id="messageButton" onclick="goToMessage()">Açılacak Bir Mektubun Var 💌</button>
+  </div>
+
+  <script>
+    const totalImages = 99;
+    const videoIndex1 = 22; // 23. sıraya
+    const videoIndex2 = 59; // 60. sıraya
+
+    const slideshow = document.getElementById("slideshow");
+    const container = document.getElementById("container");
+    const buttonWrapper = document.getElementById("buttonWrapper");
+    const overlay = document.getElementById("overlay");
+    const bgm = document.getElementById("bgm");
+    const items = [];
+    let current = 0;
+
+    // Fotoğrafları yükle
+    for (let i = 1; i <= totalImages; i++) {
+      const img = document.createElement("img");
+      img.src = `images/${i}.jpeg`;
+      img.classList.add("slideshow-item");
+      slideshow.appendChild(img);
+      items.push(img);
+    }
+
+    // 1. video
+    const video1 = document.createElement("video");
+    video1.src = "videos/1.mp4";
+    video1.muted = true;
+    video1.autoplay = true;
+    video1.playsInline = true;
+    video1.loop = false;
+    video1.classList.add("slideshow-item");
+    slideshow.appendChild(video1);
+    items.splice(videoIndex1, 0, video1);
+
+    // 2. video
+    const video2 = document.createElement("video");
+    video2.src = "videos/video2.mp4";
+    video2.muted = true;
+    video2.autoplay = true;
+    video2.playsInline = true;
+    video2.loop = false;
+    video2.classList.add("slideshow-item");
+    slideshow.appendChild(video2);
+    items.splice(videoIndex2, 0, video2);
+
+    function startEverything() {
+      bgm.play().catch(() => {});
+      overlay.style.display = 'none';
+      container.style.display = 'flex';
+
+      items[0].classList.add("active");
+      setTimeout(showNext, 2000);
+    }
+
+    function showNext() {
+      items[current].classList.remove("active");
+      current++;
+      if (current < items.length) {
+        const next = items[current];
+        next.classList.add("active");
+
+        if (next.tagName === "VIDEO") {
+          next.currentTime = 0;
+          next.play();
+          next.onended = () => {
+            next.classList.remove("active");
+            showNext();
+          };
+        } else {
+          setTimeout(showNext, 2000);
+        }
+
+      } else {
+        container.style.display = "none";
+        buttonWrapper.style.display = "flex";
+      }
+    }
+
+    function goToMessage() {
+      window.location.href = "mesaj.html";
+    }
+  </script>
+</body>
+</html>

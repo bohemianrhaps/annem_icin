@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anneme Mektup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fce4ec;
+      font-family: 'Patrick Hand', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      flex-direction: column;
+    }
+
+    #envelopeContainer {
+      position: relative;
+      width: 90vw;
+      max-width: 600px;
+    }
+
+    #envelopeClosed, #envelopeOpen {
+      width: 100%;
+      display: block;
+    }
+
+    #envelopeOpen {
+      display: none;
+    }
+
+    #openButton {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      font-size: 20px;
+      border: none;
+      border-radius: 30px;
+      background-color: #f06292;
+      color: white;
+      cursor: pointer;
+      font-family: 'Patrick Hand', cursive;
+      z-index: 10;
+    }
+
+    #letterContainer {
+      display: none;
+      position: absolute;
+      top: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      max-width: 450px;
+      height: 400px;
+      background: #fffbea;
+      border: 2px solid #f06292;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      overflow-y: auto;
+      font-size: 18px;
+      color: #333;
+      line-height: 1.5;
+      z-index: 5;
+    }
+
+    #scrollHint {
+      text-align: center;
+      font-size: 16px;
+      color: #999;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      #letterContainer {
+        height: 160px;
+        font-size: 16px;
+      }
+
+      #openButton {
+        font-size: 16px;
+        padding: 10px 20px;
+        top: -50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="envelopeContainer">
+    <button id="openButton">Zarfı Aç</button>
+    <img id="envelopeClosed" src="images2/envelope_closed.png" alt="Kapalı Zarf">
+    <img id="envelopeOpen" src="images2/envelope_open.png" alt="Açık Zarf">
+    <div id="letterContainer">
+      <div id="scrollHint">👇 Devamı için kaydırabilirsin</div>
+      <p>
+        Sevgili birtek annem,<br><br>
+        Öncelikle söze mektubuna çok teşekkür ederek başlamak istiyorum. Bu seferki mektubumu sana kâğıt üzerinden değil internet üzerinden anlamlı bir şekilde göndermek istedim. Mektubunu okurken çok duygulandım ve benim için her satırı çok anlamlıydı. Tüm mektuplarını saklıyorum. Hepsi bana güç veriyor. Burada yalnız kaldıkça okuyorum hepsini. Hepsi benim için cok anlamlı. Tekrardan teşekkür ederim bana böyle tatlı bir sürpriz yaptığın için 💗<br><br>
+        Şunu söylemek isterim ki seni çok ama çok seviyorum. Sen benim en değerlimsin. Seni hiçbir zaman üzmek istemem. Üzdüysem de özür dilerim. Elimden geldiğince hep seni mutlu etmeye çalışıyorum. Umarım sana layık bir evlat olabiliyorumdur. Sen benim hayatımda gördüğüm en güçlü kadınsın. Annelik çok zor ve sorumluluk gerektiren bir şey ve gecesi gündüzü olmayan, hiç sona ermeyen bir şey. Kaç yaşına gelirsek gelelim hâlâ her şeyi sana soruyoruz ve yorulduğunun farkındayım. Sen de bazen destek, anlayış, düşünce bekliyorsun. O yüzden mesafeler olsa da ben senin her zaman yanında olacağım tıpkı sen benim yanımda olduğun gibi en zor günlerimde.<br><br>
+        O son hastalandığımda yalnızken çok korkmuştum ve onca mesafeye rağmen benimle saatlerce oturup beni sakinleştirdin. Ya da buraya ilk geldiğimde midem bulandığında benimle sabahlara kadar konuşmuştun. Ya da bunun gibi niceleri... Beni buraya gelirken de hep destekledin, bana hep saygı duydun, beni anladın. Eğer ki şu an buradaysam senin sayende. Bir çocuk ne kadar zor büyütülüyor Adel büyürken görebiliyorum ve sen bu emeği üçümüz için de yaptın ve yapmaya devam ediyorsun. Benim için her şeyden daha kıymetlisin. Keşke seni buraya getirebilsem. Uçakla giderken düşünüyorum da keşke yanımda sen oturuyor olsaydın. Beraber Berlin sokaklarında kol kola gezsek, sana evimi, okulu göstersem, oturduğum parkları, gittiğim marketleri, kızın neler öğrenmiş onları göstersem. Rabbim inşallah o günleri de göstersin. Rabbim sana sağlık, sıhhat, hayırlı, uzun, güzel ömürler nasip etsin, seni benim başımdan eksik etmesin. Allah’ın izniyle seninle daha çok gezeceğiz 💗<br><br>
+        Çok güzel bir 3 hafta yaşadım orada, en çok da seni özlemişim. Allah’ın izniyle en kısa zamanda tekrar gelmek istiyorum Allah’ın izniyle. Sınavlarımdan başarıyla geçersem ve tez için gerekli bir durum kalmazsa... Ben gelene kadar sakın kendini bunaltma kimse için, gözyaşı dökme. Bundan sonraki tüm gözyaşların mutluluktan olsun. Bunaltma kendini, sinirlenme. Bunalırsan da konuşmak istersen de ara beni. Ben hep yanındayım. Sen çok değerlisin ve üzülmeyi hak etmiyorsun. O yüzden hep gül, sana gülmek çok yakışıyor. Beraber hep gülelim inşallah.<br><br>
+        Seni çok seviyorum bal annem, birtek annem. Umarım bu ufak ve geç olan Anneler Günü mektubumu beğenmişsindir. İyi ki varsın ve iyi ki senin gibi güçlü bir kadının kızı olmuşum. Bana başta anne, sonra sırdaş, kardeş, dost, arkadaş, her şey olduğun için minnettarım. Benim güç kaynağımsın, sakın unutma. Ben seni her zaman anlıyorum ve sana asla da kırılmıyorum. Çünkü çok zor zamandan geçtin ve hâlâ dimdik ayaktasın üç çocuk büyütüp. Bu yüzden de en çok da senin Anneler Günün kutlu olsun birtanem. Anneannem seninle gurur duyuyor, emin ol.
+        <br><br>
+        Sevgilerimle,
+        <br><br>
+        Civcivin
+      </p>
+  </div>
+
+  <script>
+    const openButton = document.getElementById("openButton");
+    const envelopeClosed = document.getElementById("envelopeClosed");
+    const envelopeOpen = document.getElementById("envelopeOpen");
+    const letterContainer = document.getElementById("letterContainer");
+
+    openButton.addEventListener("click", () => {
+      envelopeClosed.style.display = "none";
+      envelopeOpen.style.display = "block";
+      openButton.style.display = "none";
+      letterContainer.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
